@@ -72,8 +72,8 @@ class PHP_CodeSniffer_Reports_Xml implements PHP_CodeSniffer_Report
             foreach ($lineErrors as $column => $colErrors) {
                 foreach ($colErrors as $error) {
                     $error['type'] = strtolower($error['type']);
-                    if (PHP_CODESNIFFER_ENCODING !== 'utf-8') {
-                        $error['message'] = iconv(PHP_CODESNIFFER_ENCODING, 'utf-8', $error['message']);
+                    if (PHP_CODESNIFFER_ENCODING !== REPORT_OUTPUT_CHARSET) {
+                        $error['message'] = iconv(PHP_CODESNIFFER_ENCODING, REPORT_OUTPUT_CHARSET, $error['message']);
                     }
 
                     $out->startElement($error['type']);

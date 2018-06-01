@@ -21,5 +21,19 @@ if (is_file(dirname(__FILE__).'/../CodeSniffer/CLI.php') === true) {
     include_once 'PHP/CodeSniffer/CLI.php';
 }
 
+foreach ($argv as $idx => $arg)
+{
+    if (substr($arg, 0, 17) == "--output-charset=")
+    {
+        define("REPORT_OUTPUT_CHARSET", substr($arg, 17));
+        unset($argv[$idx]);
+        unset($_SERVER["argv"][$idx]);
+        break;
+    }
+}
+if (!defined("REPORT_OUTPUT_CHARSET"))
+{
+    define("REPORT_OUTPUT_CHARSET", "utf-8");
+}
 $cli = new PHP_CodeSniffer_CLI();
 $cli->runphpcs();

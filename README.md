@@ -1,3 +1,11 @@
+# 项目起源
+[项目github地址](https://github.com/squizlabs/PHP_CodeSniffer/tree/2.9.1)
+
+是基于2.9.1做出的修改
+
+### 修改
+* 增加了一个`--output-charset=`的选项，使后续不需要改源码
+
 About
 -----
 

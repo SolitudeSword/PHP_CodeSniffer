@@ -46,13 +46,21 @@ foreach ($scripts as $script) {
     echo 'done'.PHP_EOL;
 
     echo "\t=> adding stub... ";
-    $stub  = '#!/usr/bin/env php'."\n";
-    $stub .= '<?php'."\n";
-    $stub .= 'Phar::mapPhar(\''.$script.'.phar\');'."\n";
-    $stub .= 'require_once "phar://'.$script.'.phar/CodeSniffer/CLI.php";'."\n";
-    $stub .= '$cli = new PHP_CodeSniffer_CLI();'."\n";
-    $stub .= '$cli->run'.$script.'();'."\n";
-    $stub .= '__HALT_COMPILER();';
+
+    if ($script == "phpcs")
+    {
+        $stub = file_get_contents(__DIR__ . "/phpcsStub.php");
+    }
+    else
+    {
+        $stub = '#!/usr/bin/env php' . "\n";
+        $stub .= '<?php' . "\n";
+        $stub .= 'Phar::mapPhar(\'' . $script . '.phar\');' . "\n";
+        $stub .= 'require_once "phar://' . $script . '.phar/CodeSniffer/CLI.php";' . "\n";
+        $stub .= '$cli = new PHP_CodeSniffer_CLI();' . "\n";
+        $stub .= '$cli->run' . $script . '();' . "\n";
+        $stub .= '__HALT_COMPILER();';
+    }
     $phar->setStub($stub);
     echo 'done'.PHP_EOL;
 }//end foreach
